@@ -4,7 +4,7 @@
   "description": "",
   "private": false,
   "bin": {
-    "coco": "./bin/index.js"
+    "form": "./bin/index.js"
   },
   "files": [
     "bin",
