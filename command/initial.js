@@ -18,3 +18,41 @@ function copyCocoConfigJS() {
         process.exit(0);
     });
 }
+
+
+module.exports = function () {
+    // 配置文件如果存在则提示是否覆盖
+    if (fs.existsSync(path.resolve('form.config.js'))) {
+        // 连续提问
+        inquirer.prompt([
+            {
+                name: 'init-confirm',
+                type: 'confirm',
+                message: `form.config.js 已经存在，是否覆盖?`,
+                validate: function (input) {
+                    if (input.lowerCase !== 'y' && input.lowerCase !== 'n') {
+                        return 'Please input y/n !'
+                    }
+                    else {
+                        return true;
+                    }
+                }
+            }
+        ])
+            .then(answers => {
+                if (answers['init-confirm']) {
+                    copyCocoConfigJS();
+                }
+                else {
+                    process.exit(0);
+                }
+            })
+            .catch(err => {
+                console.log(chalk.red(err));
+            })
+    }
+    else {
+        copyCocoConfigJS();
+    }
+};
+
