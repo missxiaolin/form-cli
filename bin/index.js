@@ -35,9 +35,10 @@ program
     release();
   });
 
-  program
+program
   .command('releaseCo')
   .description('发布组件')
-  .action(function(){
+  .action(function () {
     releaseCo();
   });
+program.parse(process.argv);
